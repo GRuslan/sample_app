@@ -1,8 +1,19 @@
-<% provide(:title, 'Help') %>
-<h1>Help</h1>
-<p>
-  Get help on the Ruby on Rails Tutorial at the
-  <a href="http://railstutorial.org/help">Rails Tutorial help page</a>.
-  To get help on this sample app, see the
-  <a href="http://railstutorial.org/book">Rails Tutorial book</a>.
-</p>
+<% provide(:title, 'Photo') %>
+
+
+	<div id="my_camera" style="width:320px; height:240px;"></div>
+	<div id="my_result"></div>
+
+	<script language="JavaScript">
+		Webcam.attach( '#my_camera' );
+		
+		function take_snapshot() {
+		 var foto =	Webcam.snap( function(data_uri) {
+				document.getElementById('my_result').innerHTML = '<img src="'+data_uri+'"/>';
+
+				alert(data_uri);
+			} );
+		}
+	</script>
+
+	<a href="javascript:void(take_snapshot())">Take Snapshot</a>
