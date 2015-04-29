@@ -6,6 +6,7 @@ gem 'rails', '4.2.0'
 gem 'bootstrap-sass' ,'2.3.2.0'
 gem 'bcrypt-ruby', '3.1.2'
 gem 'test-unit'
+gem 'paperclip'
 # Use sqlite3 as the database for Active Record
 group :development, :test do
   gem 'mysql'

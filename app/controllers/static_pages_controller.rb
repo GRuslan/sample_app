@@ -13,7 +13,6 @@ class StaticPagesController < ApplicationController
   end
 
   def face_recognition(savedFoto, newFoto)
-    i = `br -algorithm FaceRecognition -compare #{savedFoto} #{newFoto}`
-  return i
+    i = `br -algorithm FaceRecognition -compare "#{savedFoto}" "#{newFoto}"`
   end
 end

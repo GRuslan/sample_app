@@ -17,13 +17,6 @@
 //= require_tree .
 
 
-		// WebcamJS v1.0.2
-// Webcam library for capturing JPEG/PNG images in JavaScript
-// Attempts getUserMedia, falls back to Flash
-// Author: Joseph Huckaby: http://github.com/jhuckaby
-// Based on JPEGCam: http://code.google.com/p/jpegcam/
-// Copyright (c) 2012 - 2015 Joseph Huckaby
-// Licensed under the MIT License
 
 (function(window) {
 
