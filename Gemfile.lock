@@ -66,6 +66,7 @@ GEM
     ffi (1.9.8)
     globalid (0.3.5)
       activesupport (>= 4.1.0)
+    headshot (0.1.6)
     hike (1.2.3)
     i18n (0.7.0)
     jbuilder (1.0.2)
@@ -82,7 +83,7 @@ GEM
     mini_portile (0.6.2)
     minitest (5.5.1)
     multi_json (1.11.0)
-    mysql (2.9.1)
+    mysql2 (0.3.18)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     paperclip (4.2.1)
@@ -193,9 +194,10 @@ DEPENDENCIES
   bootstrap-sass (= 2.3.2.0)
   capybara
   coffee-rails (= 4.0.1)
+  headshot
   jbuilder (= 1.0.2)
   jquery-rails (= 3.0.4)
-  mysql
+  mysql2
   paperclip
   pg (= 0.15.1)
   rails (= 4.2.0)

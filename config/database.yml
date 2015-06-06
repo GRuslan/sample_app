@@ -7,7 +7,9 @@
 
 #
 default: &default
-  adapter: mysql
+  adapter: mysql2
+  encoding: utf8
+  username: root
   password: program127
   pool: 5
   timeout: 5000
