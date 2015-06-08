@@ -1,13 +1,15 @@
 class UsersController < ApplicationController
   helper :headshot
+  before_action :signed_in_user, only: [:edit, :update]
   def show
     @user = User.find(params[:id])
-    @avatar_path = avatar_file_path(@user.avatar.to_s[0..48])
+    l = @user.avatar.to_s.length
+    @avatar_path = avatar_file_path(@user.avatar.to_s[0..l-12])
     headshot_photo = HeadshotPhoto.last
     @headshot_photo_patch = headshot_custom_image_url(headshot_photo.image_file_name)
     headshot_patch = headshot_custom_file_path(headshot_photo.image_file_name)
     @auth = face_recognition( headshot_patch , @avatar_path).to_f
-    
+
   end
 
   def new
@@ -25,11 +27,20 @@ class UsersController < ApplicationController
     end
   end
 
-  def face 
-     headshot_photo = HeadshotPhoto.last
-     @path= $avatar_path 
-    @headshot_photo_patch = headshot_custom_image_url(headshot_photo.image_file_name)
+  def edit
+    @user = User.find(params[:id])
   end
+
+  def update
+    @user = User.find(params[:id])
+    if @user.update_attributes(user_params)
+      flash[:success] = "Profile updated"
+      redirect_to @user
+    else
+      render 'edit'
+    end
+  end
+
 
 
   protect_from_forgery
@@ -55,5 +66,9 @@ end
     def user_params
       params.require(:user).permit(:name, :email, :password,
                                    :password_confirmation , :avatar )
+    end
+
+    def signed_in_user
+      redirect_to signin_url, notice: "Please sign in." unless signed_in?
     end
 end

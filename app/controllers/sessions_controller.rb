@@ -1,12 +1,13 @@
 class SessionsController < ApplicationController
    helper :headshot
   def new
+     
   end
 
   def create
+    sleep 0.5
     user = User.find_by(email: params[:session][:email].downcase)
     if user && user.authenticate(params[:session][:password])
-       headshot_photo = HeadshotPhoto.last
       sign_in user
       redirect_to user
     else
@@ -18,6 +19,12 @@ class SessionsController < ApplicationController
   def destroy
     sign_out
     redirect_to root_url
+  end
+
+
+  def face 
+    
+    redirect_to user
   end
   
 
