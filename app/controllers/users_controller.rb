@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   helper :headshot
-  before_action :signed_in_user, only: [:edit, :update]
+  before_action :signed_in_user, only: [:edit]
+  before_action :admin_user, only: [:index,:new,:create,:edit, :update]
   def show
     @user = User.find(params[:id])
     l = @user.avatar.to_s.length
@@ -12,15 +13,23 @@ class UsersController < ApplicationController
 
   end
 
+
+  def index
+     @users = User.all 
+  end
+
   def new
-  	@user = User.new
+         remember_token = User.encrypt(cookies[:remember_token])
+         @adm =User.find_by(remember_token: remember_token)
+         is = @adm.admin?
+         @is = is.to_s  
+  	     @user = User.new
   end
 
   def create
     @user = User.new(user_params)
     if @user.save
-      sign_in @user
-      flash[:success] = "Welcome to the Sample App!"
+      flash[:success] = "Успішно створений!"
       redirect_to @user
     else
       render 'new'
@@ -71,4 +80,15 @@ end
     def signed_in_user
       redirect_to signin_url, notice: "Please sign in." unless signed_in?
     end
+
+    def admin_user
+       remember_token = User.encrypt(cookies[:remember_token])
+       @user =User.find_by(remember_token: remember_token)
+       if signed_in?
+          redirect_to @user, notice: "Ви не маєте доступу!" unless @user.admin?
+       else
+           redirect_to root_url, notice: "Ви не зареєстровані!"
+       end
+    end
+
 end
