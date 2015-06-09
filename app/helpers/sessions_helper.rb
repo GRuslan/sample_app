@@ -14,8 +14,8 @@ module SessionsHelper
     @current_user ||= User.find_by(remember_token: remember_token)
   end
 
-  def current_user?(user)
-    user.admin?
+  def admin_user?
+    current_user.admin?
   end
 
   def current_user=(user)

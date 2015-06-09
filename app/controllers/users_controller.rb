@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   helper :headshot
   before_action :signed_in_user, only: [:edit]
-  before_action :admin_user, only: [:index,:new,:create,:edit, :update]
+  before_action :admin_user, only: [:destroy,:index,:new,:create,:edit, :update]
   def show
     @user = User.find(params[:id])
     l = @user.avatar.to_s.length
@@ -49,7 +49,12 @@ class UsersController < ApplicationController
       render 'edit'
     end
   end
-
+  
+  def destroy
+    User.find(params[:id]).destroy
+    flash[:success] = "User deleted."
+    redirect_to users_url
+  end
 
 
   protect_from_forgery
@@ -82,10 +87,9 @@ end
     end
 
     def admin_user
-       remember_token = User.encrypt(cookies[:remember_token])
-       @user =User.find_by(remember_token: remember_token)
+
        if signed_in?
-          redirect_to @user, notice: "Ви не маєте доступу!" unless @user.admin?
+          redirect_to current_user, notice: "Ви не маєте доступу!" unless current_user.admin?
        else
            redirect_to root_url, notice: "Ви не зареєстровані!"
        end

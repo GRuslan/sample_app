@@ -181,6 +181,12 @@ input {
     border-top: 1px solid $grayLighter;
     &:last-child {
       border-bottom: 1px solid $grayLighter;
-    }
+    }  
+  }
+
+  img {
+  width: 100px;
+  height: 75px;
   }
 }
+
