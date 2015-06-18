@@ -1,0 +1,16 @@
+<% provide(:title, 'All users') %>
+<h1>Всі працівники</h1>
+
+<ul class="users">
+  <% @users.each do |user| %>
+    <li>
+      <img src= <%= user.avatar.url %> >
+      <%= link_to user.name, user %>
+      <% if current_user.admin? %>
+    | <%= link_to "Видалити", user, method: :delete,
+                                  data: { confirm: "You sure?" } %>
+     <%= link_to "Змінити ", edit_user_path(user) %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

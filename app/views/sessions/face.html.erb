@@ -1,0 +1,14 @@
+<% provide(:title, "vhid") %>
+
+<div align="center">
+     <h1>Сфокусуйте увагу на камеру !</h1>
+<%= headshot_default_config(Rails.application.config.session_options[:key], headshot_capture_path) %>
+
+<%= headshot_camera %>
+
+
+<br/>
+
+<%= headshot_snap_button(label = 'Зробити фото', options = { class: "btn btn-large btn-primary"}) %> 
+<%= link_to "Наступний етап!", signin_path, class: "btn btn-large btn-primary" %>
+</div>

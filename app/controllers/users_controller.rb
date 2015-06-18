@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   helper :headshot
   before_action :signed_in_user, only: [:edit]
-  before_action :admin_user, only: [:destroy,:index,:new,:create,:edit, :update]
+  before_action :admin_user, only: [:destroy,:index,:new,:create, :update]
+  
   def show
     @user = User.find(params[:id])
     l = @user.avatar.to_s.length
@@ -10,20 +11,15 @@ class UsersController < ApplicationController
     @headshot_photo_patch = headshot_custom_image_url(headshot_photo.image_file_name)
     headshot_patch = headshot_custom_file_path(headshot_photo.image_file_name)
     @auth = face_recognition( headshot_patch , @avatar_path).to_f
-
+ 
   end
-
 
   def index
      @users = User.all 
   end
 
   def new
-         remember_token = User.encrypt(cookies[:remember_token])
-         @adm =User.find_by(remember_token: remember_token)
-         is = @adm.admin?
-         @is = is.to_s  
-  	     @user = User.new
+  	 @user = User.new
   end
 
   def create
@@ -57,23 +53,7 @@ class UsersController < ApplicationController
   end
 
 
-  protect_from_forgery
 
-def headshot_custom_file_path(file_name)
-File.join(Rails.root, 'public', 'headshots', file_name)
-end
-
-def avatar_file_path(file_name)
-File.join(Rails.root, 'public', file_name)
-end
-
-def headshot_custom_image_url(file_name)
-'http://' + request.host_with_port + '/headshots/' + file_name
-end
-
-   def face_recognition(savedFoto, newFoto)
-     i = `br -algorithm FaceRecognition -compare "#{savedFoto}" "#{newFoto}"`
-   end
 
   private
 

@@ -1,4 +1,10 @@
 module SessionsHelper
+    def headshot_
+    headshot_photo = HeadshotPhoto.last
+    return headshot_custom_file_path(headshot_photo.image_file_name)
+  end
+
+
 	def sign_in(user)
     remember_token = User.new_remember_token
     cookies.permanent[:remember_token] = remember_token
@@ -29,4 +35,22 @@ module SessionsHelper
     cookies.delete(:remember_token)
     self.current_user = nil
   end
+
+
+
+def headshot_custom_file_path(file_name)
+File.join(Rails.root, 'public', 'headshots', file_name)
+end
+
+def avatar_file_path(file_name)
+File.join(Rails.root, 'public', file_name)
+end
+
+def headshot_custom_image_url(file_name)
+'http://' + request.host_with_port + '/headshots/' + file_name
+end
+
+   def face_recognition(savedFoto, newFoto)
+     i = `br -algorithm FaceRecognition -compare "#{savedFoto}" "#{newFoto}"`
+   end
 end

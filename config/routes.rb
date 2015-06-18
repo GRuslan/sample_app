@@ -1,9 +1,9 @@
 SampleApp::Application.routes.draw do
   post "headshot/capture" => 'headshot#capture', :as => :headshot_capture
   resources :users
-  resources :sessions, only: [:new, :create, :destroy]
+  resources :sessions
   root  'static_pages#home'
-  match '/face',    to: 'sessions#face',           via: 'get'
+  match '/face',    to: 'sessions#face',        via: 'get'
   match '/signup',  to: 'users#new',            via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'
   match '/signout', to: 'sessions#destroy',     via: 'delete'

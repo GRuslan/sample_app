@@ -10,22 +10,14 @@
 
       <%= f.label :password %>
       <%= f.password_field :password %>
+      <%= image_tag @headshot_photo_patch %>
 
-      <h1>Headshot Demo</h1>
-
-<%= headshot_default_config(Rails.application.config.session_options[:key], headshot_capture_path) %>
-
-<%= headshot_camera %>
-
-<br/>
-
-<%= headshot_snap_button(label = 'Війти', options = { class: "btn btn-large btn-primary"}) %> 
-
-    
+      <%= f.submit "Ввійти", class: "btn btn-large btn-primary" %>
+   
     <% end %>
 
     
 
-    <p>New user? <%= link_to "Sign up now!", signup_path %></p>
+   
   </div>
 </div>
